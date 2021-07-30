@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <v-col lg="9" class="mx-auto">
-            <input-location />
+            <input-location @addNewLocation="addNewLocation" />
 
             <hr />
 
@@ -14,6 +14,7 @@
                 :key="location.title"
                 class="mt-5 mx-auto"
                 :locationData="location"
+                @deleteLocation="deleteLocation"
               />
             </div>
           </v-col>
@@ -42,10 +43,15 @@ export default {
   data: () => ({
     locations: [
       { title: "Moscow" },
-      { title: "Volzhski" },
-      { title: "Volgograd" },
-      { title: "Los-Angeles" },
     ],
   }),
+  methods: {
+    addNewLocation(title) {
+      this.locations.push({ title: title });
+    },
+    deleteLocation(title) {
+      this.locations = this.locations.filter((e) => e.title != title);
+    },
+  },
 };
 </script>
