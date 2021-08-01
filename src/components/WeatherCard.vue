@@ -3,17 +3,18 @@
     <div v-if="loader"></div>
     <v-card v-else width="250" class="mx-4">
       <v-card-title>
-        {{locationData.title}}
+        {{ locationData.title }}
       </v-card-title>
-      <hr>
       <v-card-text>
-        temp: {{ calcTemp }}
-        feels like: {{ calcFeelsLike }}
-        humidity: {{ this.weatherData.main.humidity }}
-        pressure: {{ this.weatherData.main.pressure }}
+        temp: {{ calcTemp }} <br />
+        feels like: {{ calcFeelsLike }} <br />
+        humidity: {{ this.weatherData.main.humidity }} % <br />
+        pressure: {{ calcPressure }} <br />
+        clouds: {{ this.weatherData.clouds.all }} <br />
+        wind: {{ this.weatherData.wind }}
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="deleteLocation">
+        <v-btn class="mx-auto red" @click="deleteLocation">
           delete
         </v-btn>
       </v-card-actions>
@@ -26,35 +27,35 @@ import { getWeatherByCity } from "../api";
 export default {
   props: {
     locationData: {
-      require: true
-    }
+      require: true,
+    },
   },
   async created() {
     this.weatherData = await getWeatherByCity(this.locationData.title);
-    this.loader = false
-    console.log(this.weatherData)
+    this.loader = false;
+    console.log(this.weatherData);
   },
   data: () => ({
     weatherData: null,
-    loader: true
+    loader: true,
   }),
   methods: {
     deleteLocation() {
-      this.$emit('deleteLocation', this.locationData.title)
+      this.$emit("deleteLocation", this.locationData.title);
     },
-
   },
   computed: {
     calcTemp() {
-      return Math.round(this.weatherData.main.temp -  273.15)
+      return Math.round(this.weatherData.main.temp - 273.15);
     },
     calcFeelsLike() {
-      return Math.round(this.weatherData.main.feels_like -  273.15)
-    }
-  }
-}
+      return Math.round(this.weatherData.main.feels_like - 273.15);
+    },
+    calcPressure() {
+      return Math.round(this.weatherData.main.pressure / 1.333);
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

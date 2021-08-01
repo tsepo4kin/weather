@@ -40,17 +40,21 @@ export default {
     WeatherCard,
   },
 
+  created() {
+    this.locations = JSON.parse(localStorage.getItem("weatherLocations"));
+  },
+
   data: () => ({
-    locations: [
-      { title: "Moscow" },
-    ],
+    locations: [{ title: "Moscow" }],
   }),
   methods: {
     addNewLocation(title) {
       this.locations.push({ title: title });
+      localStorage.setItem("weatherLocations", JSON.stringify(this.locations));
     },
     deleteLocation(title) {
       this.locations = this.locations.filter((e) => e.title != title);
+      localStorage.setItem("weatherLocations", JSON.stringify(this.locations));
     },
   },
 };
