@@ -1,8 +1,14 @@
 <template>
   <div>
-    <h2>location input</h2>
-    <v-text-field v-model="cityTitle"></v-text-field>
-    <v-btn @click="addNewLocation">add</v-btn>
+    <h2 class="text-center">location input</h2>
+    <v-text-field
+      solo
+      hide-details="true"
+      clearable
+      label="Volzhskiy"
+      v-model="cityTitle"
+    ></v-text-field>
+    <v-btn class="my-3" block @click="addNewLocation">add</v-btn>
   </div>
 </template>
 

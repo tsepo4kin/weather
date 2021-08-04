@@ -41,7 +41,7 @@ export default {
   },
 
   created() {
-    this.locations = JSON.parse(localStorage.getItem("weatherLocations"));
+    this.locations = JSON.parse(localStorage.getItem("weatherLocations")) || [];
   },
 
   data: () => ({
