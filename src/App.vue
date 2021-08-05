@@ -1,13 +1,12 @@
 <template>
   <v-app>
+
+    <input-location @addNewLocation="addNewLocation" />
+
     <v-main>
       <v-container>
         <v-row>
           <v-col lg="9" class="mx-auto">
-            <input-location @addNewLocation="addNewLocation" />
-
-            <hr />
-
             <div class="d-flex flex-wrap">
               <weather-card
                 v-for="location in locations"
