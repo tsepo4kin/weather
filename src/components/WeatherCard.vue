@@ -6,18 +6,70 @@
         {{ locationData.title }}
       </v-card-title>
       <v-card-text>
-        temp: {{ calcTemp }} <br />
-        feels like: {{ calcFeelsLike }} <br />
-        humidity: {{ this.weatherData.main.humidity }} % <br />
-        pressure: {{ calcPressure }} <br />
-        clouds: {{ this.weatherData.clouds.all }} % <br />
-        wind: {{ this.weatherData.wind }} <br />
-        <span v-if='this.weatherData.rain'>
-          rain: {{ this.weatherData.rain}}
+        <span
+          class="title"
+        >
+        Temp:  {{ calcTemp }}&#176;
         </span>
-        <span v-if='this.weatherData.snow'>
-          rain: {{ this.weatherData.snow}}
+
+        <v-icon class="float-right" style="font-size: 150px">
+          {{calcIcon}}
+        </v-icon>
+
+        <span
+          class="title d-block"
+        >
+          Feels like: {{ calcFeelsLike }}&#176;
         </span>
+
+        <span
+          class="title d-block"
+        >
+          <v-icon>
+            mdi-water-percent
+          </v-icon>:
+          {{ this.weatherData.main.humidity }}%
+        </span>
+
+        <span
+          class="title d-block"
+        >
+          <v-icon>
+            mdi-weight
+          </v-icon>:
+          {{ calcPressure }}-mm
+        </span>
+
+        <span
+          class="title d-block"
+        >
+          <v-icon>
+            mdi-weather-windy
+          </v-icon>:
+          {{ this.weatherData.wind }}
+        </span>
+
+        <span 
+          class="title d-block"
+          v-if='this.weatherData.rain'
+        >
+          <v-icon>
+            mdi-water
+          </v-icon>:
+          {{this.weatherData.rain}}
+        </span>
+
+         <span 
+          class="title d-block"
+          v-if='this.weatherData.snow'
+        >
+          <v-icon>
+            mdi-snowflake
+          </v-icon>:
+          {{this.weatherData.snow}}
+        </span>
+
+
       </v-card-text>
       <v-card-actions>
         <v-btn class="mx-auto red" @click="deleteLocation">
@@ -69,6 +121,26 @@ export default {
       }
       else {
         return 'light-blue lighten-3'
+      }
+    },
+    calcIcon() {
+      if(this.weatherData.rain) {
+        return 'mdi-weather-pouring'
+      }
+      else if(this.weatherData.snow) {
+        return 'mdi-weather-snowy'
+      }
+      else if (this.weatherData.clouds.all === 0) {
+        return 'mdi-white-balance-sunny'
+      }
+      else if (this.weatherData.clouds.all <= 70) {
+        return 'mdi-weather-partly-cloudy'
+      }
+      else if (this.weatherData.clouds.all > 70) {
+        return 'mdi-cloud'
+      }
+      else {
+        return null
       }
     }
   },
