@@ -32,21 +32,21 @@
           <v-icon>
             mdi-weather-windy </v-icon
           >:
-           Direction {{calcWindDirection}}, speed: {{this.weatherData.wind.speed}}
+           Direction {{calcWindDirection}}, speed: {{this.weatherData.wind.speed}} m/s
         </span>
 
         <span class="title d-block" v-if="this.weatherData.rain">
           <v-icon>
             mdi-water </v-icon
           >:
-          {{ this.weatherData.rain }}
+          Rain volume for last {{calcRainTime}}: {{calcRainVolume}} mm
         </span>
 
         <span class="title d-block" v-if="this.weatherData.snow">
           <v-icon>
             mdi-snowflake </v-icon
           >:
-          {{ this.weatherData.snow }}
+          Snow volume for last {{calcSnowTime}}: {{calcSnowVolume}} mm
         </span>
       </v-card-text>
       <v-card-actions>
@@ -69,7 +69,6 @@ export default {
   async created() {
     this.weatherData = await getWeatherByCity(this.locationData.title);
     this.loader = false;
-    console.log(this.weatherData);
   },
   data: () => ({
     weatherData: null,
@@ -161,6 +160,18 @@ export default {
         return 'error in calcs'
       }
     },
+    calcRainTime() {
+      return Object.keys(this.weatherData.rain)[0];
+    },
+    calcRainVolume() {
+      return Object.values(this.weatherData.rain)[0];
+    },
+    calcSnowTime() {
+      return Object.keys(this.weatherData.snow)[0];
+    },
+    calcSnowVolume() {
+      return Object.values(this.weatherData.snow)[0];
+    }
   },
 };
 </script>
