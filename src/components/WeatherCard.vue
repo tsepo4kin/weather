@@ -17,36 +17,27 @@
         </span>
 
         <span class="title d-block">
-          <v-icon>
-            mdi-water-percent </v-icon
-          >: {{ this.weatherData.main.humidity }}%
+          <v-icon> mdi-water-percent </v-icon>:
+          {{ this.weatherData.main.humidity }}%
         </span>
 
         <span class="title d-block">
-          <v-icon>
-            mdi-weight </v-icon
-          >: {{ calcPressure }}-mm
+          <v-icon> mdi-weight </v-icon>: {{ calcPressure }}-mm
         </span>
 
         <span class="title d-block">
-          <v-icon>
-            mdi-weather-windy </v-icon
-          >:
-           Direction {{calcWindDirection}}, speed: {{this.weatherData.wind.speed}} m/s
+          <v-icon> mdi-weather-windy </v-icon>: Direction
+          {{ calcWindDirection }}, speed: {{ this.weatherData.wind.speed }} m/s
         </span>
 
         <span class="title d-block" v-if="this.weatherData.rain">
-          <v-icon>
-            mdi-water </v-icon
-          >:
-          Rain volume for last {{calcRainTime}}: {{calcRainVolume}} mm
+          <v-icon> mdi-water </v-icon>: Rain volume for last {{ calcRainTime }}:
+          {{ calcRainVolume }} mm
         </span>
 
         <span class="title d-block" v-if="this.weatherData.snow">
-          <v-icon>
-            mdi-snowflake </v-icon
-          >:
-          Snow volume for last {{calcSnowTime}}: {{calcSnowVolume}} mm
+          <v-icon> mdi-snowflake </v-icon>: Snow volume for last
+          {{ calcSnowTime }}: {{ calcSnowVolume }} mm
         </span>
       </v-card-text>
       <v-card-actions>
@@ -68,7 +59,12 @@ export default {
   },
   async created() {
     this.weatherData = await getWeatherByCity(this.locationData.title);
-    this.loader = false;
+    if (this.weatherData == "error") {
+      alert("Ошибка запроса");
+      this.$emit("wrongLocation", this.locationData.title);
+    } else {
+      this.loader = false;
+    }
   },
   data: () => ({
     weatherData: null,
@@ -155,9 +151,8 @@ export default {
         this.weatherData.wind.deg < 157.5
       ) {
         return "to SouthEast";
-      }
-      else {
-        return 'error in calcs'
+      } else {
+        return "error in calcs";
       }
     },
     calcRainTime() {
@@ -171,7 +166,7 @@ export default {
     },
     calcSnowVolume() {
       return Object.values(this.weatherData.snow)[0];
-    }
+    },
   },
 };
 </script>

@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <input-location @addNewLocation="addNewLocation" />
 
     <v-main>
@@ -14,6 +13,7 @@
                 class="mt-5 mx-auto"
                 :locationData="location"
                 @deleteLocation="deleteLocation"
+                @wrongLocation="deleteLocation"
               />
             </div>
           </v-col>
