@@ -1,4 +1,4 @@
-const API_KEY = "8789428acc9f37da5119fe09be97baee";
+const API_KEY = process.env.VUE_APP_API_KEY;
 
 export const getWeatherByCity = (cityName) =>
   fetch(
