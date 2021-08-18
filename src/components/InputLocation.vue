@@ -10,43 +10,63 @@
           label="Volzhskiy"
           v-model="cityTitle"
           @input="autoComplete"
+          @keydown.enter="addNewLocation"
         ></v-text-field>
-        <div
-          v-for='cityName of autoCompleteData'
-          :key='cityName.id'
-        >{{cityName.name}}</div>
-        <v-btn class="my-3 d-block mx-auto green accent-2" width="300" @click="addNewLocation">add</v-btn>
+        <div class="d-flex justify-space-around mt-3">
+          <div
+            class="white rounded-pill pa-2 elevation-8"
+            style="cursor: pointer"
+            v-for="cityName of autoCompleteData"
+            :key="cityName.id"
+            @click="fillInput(cityName.name)"
+          >
+            {{ cityName.name }}
+          </div>
+        </div>
+        <v-btn
+          class="my-3 d-block mx-auto green accent-2"
+          width="300"
+          @click="addNewLocation"
+          >add</v-btn
+        >
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import citiesList from '@/city-list.json'
+import citiesList from "@/city-list.json";
 export default {
   data: () => ({
     cityTitle: null,
-    autoCompleteData: null
+    autoCompleteData: null,
   }),
   created() {
-    this.citiesListData = citiesList
+    this.citiesListData = citiesList;
   },
   methods: {
     autoComplete(inputValue) {
       let count = 0;
-      this.autoCompleteData = this.citiesListData.filter(e => {
-        if(e.name.toLowerCase().indexOf(inputValue.toLowerCase()) == 0 && count < 4 ) {
+      this.autoCompleteData = this.citiesListData.filter((e) => {
+        if (
+          e.name.toLowerCase().indexOf(inputValue.toLowerCase()) == 0 &&
+          count < 4
+        ) {
           count++;
           return true;
         } else {
           return false;
         }
-      })
-      console.log(this.autoCompleteData)
+      });
+      console.log(this.autoCompleteData);
     },
     addNewLocation() {
       this.$emit("addNewLocation", this.cityTitle);
       this.cityTitle = null;
+    },
+    fillInput(name) {
+      this.cityTitle = name;
+      this.addNewLocation();
     },
   },
 };
