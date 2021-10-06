@@ -1,9 +1,11 @@
 <template>
   <v-app>
-    <input-location @addNewLocation="addNewLocation" />
+   <app-header @addNewLocation="addNewLocation"></app-header>
 
     <v-main>
+
       <v-container>
+
         <v-row>
           <v-col lg="9" class="mx-auto">
             <div class="d-flex flex-wrap">
@@ -18,25 +20,29 @@
             </div>
           </v-col>
         </v-row>
+
         <v-row>
           <v-col>
             <!-- graph -->
           </v-col>
         </v-row>
+      
       </v-container>
+    
     </v-main>
+  
   </v-app>
 </template>
 
 <script>
-import InputLocation from "./components/InputLocation.vue";
+import AppHeader from './components/AppHeader.vue';
 import WeatherCard from "./components/WeatherCard.vue";
 
 export default {
   name: "App",
   components: {
-    InputLocation,
     WeatherCard,
+    AppHeader,
   },
 
   created() {
