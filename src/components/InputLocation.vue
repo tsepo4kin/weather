@@ -46,24 +46,16 @@ export default {
   },
   methods: {
     autoComplete(inputValue) {
-      let count = 0;
       this.autoCompleteData = this.citiesListData.filter((e) => {
-        if (
-          e.name.toLowerCase().indexOf(inputValue.toLowerCase()) == 0 &&
-          count < 4
-        ) {
-          count++;
-          return true;
-        } else {
-          return false;
-        }
-      });
-      console.log(this.autoCompleteData);
+        if (e.name.toLowerCase().indexOf(inputValue.toLowerCase()) == 0 ) return true;
+      }).slice(0, 4);
     },
+
     addNewLocation() {
       this.$emit("addNewLocation", this.cityTitle);
       this.cityTitle = null;
     },
+
     fillInput(name) {
       this.cityTitle = name;
       this.addNewLocation();
