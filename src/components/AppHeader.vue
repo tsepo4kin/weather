@@ -5,15 +5,11 @@
       dark
       height="100"
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title
-      >Weather</v-toolbar-title>
+      <v-toolbar-title>Weather</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-
       <input-location @addNewLocation="addNewLocation"></input-location>
-
 
     </v-app-bar>
   </div>
