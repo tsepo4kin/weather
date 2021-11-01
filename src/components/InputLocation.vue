@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div max-width="500">
     <v-text-field
       solo
       hide-details="true"
@@ -13,7 +13,7 @@
       @input="autoComplete"
       @keydown.enter="addNewLocation"
     ></v-text-field>
-    <!-- <div class="d-flex justify-space-around mt-3">
+    <div class="d-flex justify-space-around mt-3">
       <div
         class="black rounded-pill pa-2 elevation-8"
         style="cursor: pointer"
@@ -23,7 +23,7 @@
       >
         {{ cityName.name }}
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
