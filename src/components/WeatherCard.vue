@@ -2,15 +2,15 @@
   <div>
     <div v-if="loader"></div>
     <v-card v-else width="350" class="mx-4">
-      <v-card-title :class="calcColor">
+      <v-card-title class="deep-purple accent-4" style="color: white">
         {{ locationData.title }}
       </v-card-title>
-      <v-card-text>
-        <span class="title"> Temp: {{ calcTemp }}&#176; </span>
-
-        <v-icon class="float-right" style="font-size: 150px">
+      <v-card-text class="py-2">
+        <v-icon class="float-right" style="font-size: 140px">
           {{ calcIcon }}
         </v-icon>
+        
+        <span class="text-h4 d-block ml-4">{{ calcTemp }}&#176; </span>
 
         <span class="title d-block">
           Feels like: {{ calcFeelsLike }}&#176;
@@ -22,12 +22,7 @@
         </span>
 
         <span class="title d-block">
-          <v-icon> mdi-weight </v-icon>: {{ calcPressure }}-mm
-        </span>
-
-        <span class="title d-block">
-          <v-icon> mdi-weather-windy </v-icon>: Direction
-          {{ calcWindDirection }}, speed: {{ this.weatherData.wind.speed }} m/s
+          <v-icon> mdi-weather-windy </v-icon>: {{ this.weatherData.wind.speed }} m/s
         </span>
 
         <span class="title d-block" v-if="this.weatherData.rain">
@@ -41,7 +36,7 @@
         </span>
       </v-card-text>
       <v-card-actions>
-        <v-btn class="mx-auto red" @click="deleteLocation">
+        <v-btn class="mx-auto" dark @click="deleteLocation">
           delete
         </v-btn>
       </v-card-actions>
@@ -82,19 +77,6 @@ export default {
     calcFeelsLike() {
       return Math.round(this.weatherData.main.feels_like - 273.15);
     },
-    calcPressure() {
-      return Math.round(this.weatherData.main.pressure / 1.333);
-    },
-    calcColor() {
-      if (this.weatherData.rain) {
-        return "grey lighten-1";
-      }
-      if (this.weatherData.snow) {
-        return "white";
-      } else {
-        return "light-blue lighten-3";
-      }
-    },
     calcIcon() {
       if (this.weatherData.rain) {
         return "mdi-weather-pouring";
@@ -110,51 +92,7 @@ export default {
         return null;
       }
     },
-    calcWindDirection() {
-      if (
-        this.weatherData.wind.deg >= 157.5 &&
-        this.weatherData.wind.deg < 202.5
-      ) {
-        return "to South";
-      } else if (
-        this.weatherData.wind.deg >= 202.5 &&
-        this.weatherData.wind.deg < 247.5
-      ) {
-        return "to SouthWest";
-      } else if (
-        this.weatherData.wind.deg >= 247.5 &&
-        this.weatherData.wind.deg < 292.5
-      ) {
-        return "to West";
-      } else if (
-        this.weatherData.wind.deg >= 292.5 &&
-        this.weatherData.wind.deg < 337.5
-      ) {
-        return "to NorthWest";
-      } else if (
-        this.weatherData.wind.deg >= 337.5 ||
-        this.weatherData.wind.deg < 22.5
-      ) {
-        return "to North";
-      } else if (
-        this.weatherData.wind.deg >= 22.5 &&
-        this.weatherData.wind.deg < 67.5
-      ) {
-        return "to NorthEast";
-      } else if (
-        this.weatherData.wind.deg >= 67.5 &&
-        this.weatherData.wind.deg < 112.5
-      ) {
-        return "to East";
-      } else if (
-        this.weatherData.wind.deg >= 112.5 &&
-        this.weatherData.wind.deg < 157.5
-      ) {
-        return "to SouthEast";
-      } else {
-        return "error in calcs";
-      }
-    },
+
     calcRainTime() {
       return Object.keys(this.weatherData.rain)[0];
     },
